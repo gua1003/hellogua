@@ -19,7 +19,7 @@ public class StudentController {
 
     @RequestMapping("test")
     public void hh(){
-        System.out.println("test111");
+        System.out.println("test222");
     }
 
     @RequestMapping("toZc")
