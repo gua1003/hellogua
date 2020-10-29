@@ -17,6 +17,11 @@ public class StudentController {
     @Autowired
     private StudentService ss;
 
+    @RequestMapping("test")
+    public void hh(){
+        System.out.println("test111");
+    }
+
     @RequestMapping("toZc")
     public String toZc(){
         return "zc";
