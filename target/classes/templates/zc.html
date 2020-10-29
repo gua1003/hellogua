@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/student/zc" method="post" id="form">
+    账号:<input type="text" name="sname" id="sname"><font color="red" id="f"></font><br>
+    密码:<input type="text" name="sno" id="pwd"><br>
+    <input type="submit" value="注册"><br>
+</form>
+</body>
+<script type="text/javascript" th:src="@{/static/js/jq.js}"></script>
+<script type="text/javascript" >
+    var flag=false;
+    $("#sname").blur(function(){
+        var sname=$(this).val();
+        $.ajax({
+            url:"/student/findName",
+            type:"post",
+            data:{"sname":sname},
+            success:function (data) {
+                alert(data);
+                if(data==null || data==""){
+                    $("#f").text("");
+                    flag=true;
+
+                }else{
+                    $("#f").text("名称重复");
+                    flag=false;
+                }
+            }
+        })
+    })
+
+    $("#form").submit(function () {
+        return flag;
+    })
+</script>
+</html>

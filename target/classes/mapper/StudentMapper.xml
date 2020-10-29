@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.usian.mapper.StudentMapper">
+    <!--<insert id="addStudent" parameterType="student">
+        insert into student values(null,#{sno},#{sname},#{sex},#{stime})
+    </insert>-->
+
+    <select id="findStudent" parameterType="Student" resultType="Student">
+        select * from student where 1=1
+        <if test="sname!=null and sname!=''">
+            and sname like concat('%',#{sname},'%')
+        </if>
+        <if test="starttime!=null">
+            and stime &gt;= #{starttime}
+        </if>
+        <if test="stoptime!=null">
+            and stime &gt;= #{stoptime}
+        </if>
+    </select>
+    <delete id="deleteStu" parameterType="int">
+        delete from student where sid=#{sid}
+    </delete>
+    <select id="findStuById" parameterType="int" resultType="Student">
+        select * from student where sid=#{sid}
+    </select>
+    <update id="updateStu" parameterType="Student">
+        update student set sno=#{sno},sname=#{sname},sex=#{sex},stime=#{stime} where sid=#{sid}
+    </update>
+    <select id="findStudentByName" parameterType="string" resultType="Student">
+        select * from student where sname=#{sname}
+    </select>
+    <select id="findStuByPwd" parameterType="String" resultType="Student">
+        select * from student where sno=#{sno}
+    </select>
+</mapper>

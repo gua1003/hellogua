@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>學生列表</title>
+
+</head>
+<body>
+<a href="/student/toAdd">添加</a>
+<form action="/student/show" method="post" id="form">
+    名称:<input type="text" name="sname" th:value="${sname}"><br>
+    开始时间:<input type="date" name="starttime" th:value="${#dates.format(starttime,'yyyy-MM-dd')}"><br>
+    结束时间:<input type="date" name="stoptime" th:value="${#dates.format(stoptime,'yyyy-MM-dd')}"><br>
+    <input type="hidden" name="pageNum" id="pageNum">
+    <input type="submit" value="搜索">
+</form>
+<table border="1" cellspacing="0">
+    <thead>
+    <tr>
+        <td>
+            编号
+        </td>
+        <td>
+            学号
+        </td>
+        <td>
+            姓名
+        </td>
+        <td>
+            性别
+        </td>
+        <td>
+            出生日期
+        </td>
+        <td>
+           操作
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s :${page.list}"  >
+        <td th:text="${s.sid}">
+        </td>
+        <td th:text="${s.sno}">
+        </td>
+        <td th:text="${s.sname}">
+        </td>
+        <td>
+           <span th:if="${s.sex}=='0'">男</span>
+           <span th:if="${s.sex}=='1'">女</span>
+        </td>
+        <td th:text="${#dates.format(s.stime,'yyyy-MM-dd')}">
+        </td>
+        <td>
+            <a  th:href="@{/student/deleteStudent(sid=(${s.sid}))}" >删除</a>
+            <a  th:href="@{/student/findStudentById(sid=${s.sid})}" >修改</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<input type="button" value="首页" th:onclick="getPage(1)">
+<input type="button" value="上一页" th:onclick="'getPage('+${page.prePage}+')'">
+<input type="button" value="下一页" th:onclick="'getPage('+${page.nextPage}+')'">
+<input type="button" value="尾页" th:onclick="'getPage('+${page.pages}+')'">
+</body>
+<script>
+    function getPage(pageNum){
+        document.getElementById("pageNum").value=pageNum;
+        document.getElementById("form").submit();
+    }
+</script>
+</html>
