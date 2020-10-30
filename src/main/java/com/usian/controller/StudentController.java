@@ -18,8 +18,9 @@ public class StudentController {
     private StudentService ss;
 
     @RequestMapping("test")
+    //呜呜
     public void hh(){
-        System.out.println("test111");
+        System.out.println("test222");
     }
 
     @RequestMapping("toZc")
